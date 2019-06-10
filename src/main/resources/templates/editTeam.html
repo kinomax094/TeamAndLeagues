@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Edit Team</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+</head>
+<body>
+<div>
+    <nav class="nav nav-pills nav-fill">
+        <div><a href="/login" class="nav-item nav-link">Home</a></div>
+        <div><a href="/secured/user/teams/showTeams" class="nav-item nav-link active">Teams</a></div>
+        <div><a href="/secured/user/players/showPlayers" class="nav-item nav-link">Players</a></div>
+        <div><a href="/secured/user/leagues/showLeagues" class="nav-item nav-link">Leagues</a></div>
+        <div><a href="/secured/user/countries/showCountries" class="nav-item nav-link">Countries</a></div>
+        <div><a href="/secured/admin/teams/addTeam" class="nav-item nav-link">Add Team</a></div>
+        <div><a href="/secured/admin/players/addPlayer" class="nav-item nav-link">Add Player</a></div>
+        <div><a href="/secured/admin/leagues/addLeague" class="nav-item nav-link">Add League</a></div>
+        <div><a href="/logout" class="nav-item nav-link">Logout</a></div>
+    </nav>
+</div>
+
+<div class="container col-10">
+    <form  action="/secured/admin/teams/saveTeam"  method="post" th:object="${Team}">
+
+
+        <input type="hidden" id="id" name="id" value="" th:field="*{id}"/>
+        <div class="form-group">
+            <label>Name:</label>
+            <input  type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter name" name="name">
+        </div>
+        <div class="form-group">
+            <label>Logo:</label>
+            <input type="text" th:field="*{logo}" class="form-control" id="logo" placeholder="logo" name="logo">
+        </div>
+
+        <div class="form-group col-10">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-info">Reset</button>
+        </div>
+    </form>
+</div>
+
+
+<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-3">
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Information</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td th:text="${team.name}" >Nazwa</td>
+                        </tr>
+                        <tr>
+                            <td><img th:src="${team.logo}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-9">
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Country</th>
+                            <th>Type</th>
+                            <th>Played Match</th>
+                            <th>Details</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="i : ${team.players}">
+                            <td th:text="${i.name}">>xxx</td>
+                            <td th:text="${i.age}">>xxx</td>
+                            <td th:text="${i.playerCountry}">>xxx</td>
+                            <td th:text="${i.type}">>xxx</td>
+                            <td th:text="${i.matchPlayed}">>xxx</td>
+                            <td>
+                                <div>
+                                    <a href="#" th:href="@{/secured/user/players/showPlayer/__${i.id}__}"><span><i class='fas fa-file-alt' style='font-size:12px'></i></span></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Edit League</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
+          integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+</head>
+<body>
+<div>
+    <nav class="nav nav-pills nav-fill">
+        <div><a href="/login" class="nav-item nav-link">Home</a></div>
+        <div><a href="/secured/user/teams/showTeams" class="nav-item nav-link">Teams</a></div>
+        <div><a href="/secured/user/players/showPlayers" class="nav-item nav-link">Players</a></div>
+        <div><a href="/secured/user/leagues/showLeagues" class="nav-item nav-link active">Leagues</a></div>
+        <div><a href="/secured/user/countries/showCountries" class="nav-item nav-link">Countries</a></div>
+        <div><a href="/secured/admin/teams/addTeam" class="nav-item nav-link">Add Team</a></div>
+        <div><a href="/secured/admin/players/addPlayer" class="nav-item nav-link">Add Player</a></div>
+        <div><a href="/secured/admin/leagues/addLeague" class="nav-item nav-link">Add League</a></div>
+        <div><a href="/logout" class="nav-item nav-link">Logout</a></div>
+    </nav>
+</div>
+
+<div class="container">
+    <form action="/secured/admin/leagues/saveLeague" method="post" th:object="${league}">
+        <div class="container-fluid">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3 col-md-6">
+                        <input type="hidden" id="id" name="id" value="" th:field="*{id}"/>
+                        <div class="form-group col-6">
+                            <label>Name:</label>
+                            <input type="text" th:field="*{name}" class="form-control" id="name"
+                                   placeholder="Enter name" name="name">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Country:</label>
+                            <div class="form-group col-6">
+                                <select th:field="*{countryId}" name="countryId" id="countryId">
+                                    <option th:each="c : ${countries}" th:value="${c.id}" th:text="${c.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-6">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-info">Reset</button>
+                </div>
+    </form>
+</div>
+
+
+<div class="container-fluid">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-6">
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Information</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Name:</td>
+                            <td th:text="${league.name}">Name</td>
+                        </tr>
+                        <tr>
+                            <td>Country:</td>
+                            <td th:text="${league.countryName}">Country</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

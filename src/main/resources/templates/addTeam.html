@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Add Team</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div>
+    <nav class="nav nav-pills nav-fill">
+        <div><a href="/login" class="nav-item nav-link">Home</a></div>
+        <div><a href="/secured/user/teams/showTeams" class="nav-item nav-link">Teams</a></div>
+        <div><a href="/secured/user/players/showPlayers" class="nav-item nav-link">Players</a></div>
+        <div><a href="/secured/user/leagues/showLeagues" class="nav-item nav-link">Leagues</a></div>
+        <div><a href="/secured/user/countries/showCountries" class="nav-item nav-link">Countries</a></div>
+        <div><a href="/secured/admin/teams/addTeam" class="nav-item nav-link active">Add Team</a></div>
+        <div><a href="/secured/admin/players/addPlayer" class="nav-item nav-link">Add Player</a></div>
+        <div><a href="/secured/admin/leagues/addLeague" class="nav-item nav-link">Add League</a></div>
+        <div><a href="/logout" class="nav-item nav-link">Logout</a></div>
+    </nav>
+</div>
+
+
+<div class="container col-10">
+    <form  action="/secured/admin/teams/saveTeam"  method="post" th:object="${Team}">
+
+        <div class="form-group">
+            <label>Name:</label>
+            <input  type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter name" name="name">
+        </div>
+        <div class="form-group">
+            <label>Logo:</label>
+            <input type="text" th:field="*{logo}" class="form-control" id="logo" placeholder="logo" name="logo">
+        </div>
+
+        <div class="form-group col-10">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-info">Reset</button>
+        </div>
+    </form>
+</div>
+
+
+</form>
+</div>
+</body>
+</html>

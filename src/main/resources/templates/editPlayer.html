@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Edit Player</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+</head>
+<body>
+<div>
+    <nav class="nav nav-pills nav-fill">
+        <div><a href="/login" class="nav-item nav-link">Home</a></div>
+        <div><a href="/secured/user/teams/showTeams" class="nav-item nav-link">Teams</a></div>
+        <div><a href="/secured/user/players/showPlayers" class="nav-item nav-link active">Players</a></div>
+        <div><a href="/secured/user/leagues/showLeagues" class="nav-item nav-link">Leagues</a></div>
+        <div><a href="/secured/user/countries/showCountries" class="nav-item nav-link">Countries</a></div>
+        <div><a href="/secured/admin/teams/addTeam" class="nav-item nav-link">Add Team</a></div>
+        <div><a href="/secured/admin/players/addPlayer" class="nav-item nav-link">Add Player</a></div>
+        <div><a href="/secured/admin/leagues/addLeague" class="nav-item nav-link">Add League</a></div>
+        <div><a href="/logout" class="nav-item nav-link">Logout</a></div>
+    </nav>
+</div>
+
+<div class="container">
+    <form  action="/secured/admin/players/savePlayer"  method="post" th:object="${Player}">
+        <div class="container-fluid">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3 col-md-6">
+                        <input type="hidden" id="id" name="id" value="" th:field="*{id}"/>
+                        <div class="form-group col-6">
+                            <input type="hidden" id="id" name="id" value="" th:field="*{id}"/>
+                            <label>Name:</label>
+                            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter name" name="username">
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>Number:</label>
+                            <input type="text" th:field="*{number}" class="form-control" id="number" placeholder="Enter number" name="number">
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>Country:</label>
+                            <select th:field="*{playerCountry}" class="form-control mb-2 mr-sm-2" name="country" id="country">
+                                <option th:each="i : ${country}" th:value="${i.name}" th:text="${i.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>Type:</label>
+                            <select th:field="*{type}" class="form-control mb-2 mr-sm-2" name="type" id="type">
+                                <option value="Goalkeepers">Goalkeepers</option>
+                                <option value="Defenders">Defenders</option>
+                                <option value="Midfielders">Midfielders</option>
+                                <option value="Forwards">Forwards</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>Age:</label>
+                            <input type="text" class="form-control" th:field="*{age}" id="age" placeholder="Enter age" name="age">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-9 col-md-6">
+                        <div class="form-group col-6">
+                            <label>Match Played:</label>
+                            <input type="text" class="form-control" th:field="*{matchPlayed}" id="matchPlayed"  placeholder="Enter value" name="matchPlayed">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Goals:</label>
+                            <input type="text" class="form-control" th:field="*{goals}" id="goal" placeholder="Enter value" name="goal">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Yellow Cards:</label>
+                            <input type="text" class="form-control" th:field="*{yellowCards}" id="yellowCard" placeholder="Enter value" name="yellowCard">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Red Cards:</label>
+                            <input type="text" class="form-control" th:field="*{redCards}" id="redCard" placeholder="Enter value" name="redCard">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Team:</label>
+                            <select th:field="*{teamId}" class="form-control mb-2 mr-sm-2" name="teamId" id="teamId">
+                                <option th:each="i : ${types}" th:value="${i.id}" th:text="${i.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group col-6">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-info">Reset</button>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="container-fluid">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-6">
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Information</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Name: </td>
+                            <td th:text="${player.name}">Name</td>
+                        </tr>
+                        <tr>
+                            <td>Number</td>
+                            <td th:text="${player.number}">Number"></td>
+                        </tr>
+                        <tr>
+                            <td>Country</td>
+                            <td th:text="${player.playerCountry}">Country</td>
+                        </tr>
+                        <tr>
+                            <td>Age</td>
+                            <td th:text="${player.age}">Age</td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td th:text="${player.type}">Type</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-9 col-6">
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Statistics</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Mach Played</td>
+                            <td th:text="${player.matchPlayed}"></td>
+                        </tr>
+                        <tr>
+                            <td>Goals</td>
+                            <td th:text="${player.goals}">Goals</td>
+                        </tr>
+                        <tr>
+                            <td>Yellow Cards</td>
+                            <td th:text="${player.yellowCards}">Yellow Cards</td>
+                        </tr>
+                        <tr>
+                            <td>Red Cards</td>
+                            <td th:text="${player.redCards}">Red Cards</td>
+                        </tr>
+                        <tr>
+                            <td>Team</td>
+                            <td th:text="${player.teamName}">Team</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

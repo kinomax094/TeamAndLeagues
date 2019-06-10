@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Country</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+</head>
+<body>
+<div>
+    <nav class="nav nav-pills nav-fill">
+        <div><a href="/login" class="nav-item nav-link">Home</a></div>
+        <div><a href="/secured/user/teams/showTeams" class="nav-item nav-link">Teams</a></div>
+        <div><a href="/secured/user/players/showPlayers" class="nav-item nav-link">Players</a></div>
+        <div><a href="/secured/user/leagues/showLeagues" class="nav-item nav-link">Leagues</a></div>
+        <div><a href="/secured/user/countries/showCountries" class="nav-item nav-link active">Countries</a></div>
+        <div><a href="/secured/admin/teams/addTeam" class="nav-item nav-link">Add Team</a></div>
+        <div><a href="/secured/admin/players/addPlayer" class="nav-item nav-link">Add Player</a></div>
+        <div><a href="/secured/admin/leagues/addLeague" class="nav-item nav-link">Add League</a></div>
+        <div><a href="/logout" class="nav-item nav-link">Logout</a></div>
+    </nav>
+</div>
+
+<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-3">
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Information</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>ID </td>
+                            <td th:text="${country.id}" >Nazwa</td>
+                        </tr>
+                        <tr>
+                            <td>Name </td>
+                            <td><img th:text="${country.name}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-9">
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Details</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l : ${leagues}">
+                            <td th:text="${l.id}">>xxx</td>
+                            <td th:text="${l.name}">>xxx</td>
+                            <td>
+                                <div>
+                                    <a href="#" th:href="@{/secured/user/leagues/__${l.id}__}"><span><i class='fas fa-file-alt' style='font-size:12px'></i></span></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

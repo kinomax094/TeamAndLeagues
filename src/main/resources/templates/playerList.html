@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Player List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+
+    <style>
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+}
+
+.pagination a.active {
+  background-color: DodgerBlue;
+  color: white;
+  border: 1px solid DodgerBlue;
+}
+
+.pagination a:hover:not(.active) {background-color: white;}
+
+.pagination a:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.pagination a:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+</style>
+
+
+</head>
+<body>
+<div>
+    <nav class="nav nav-pills nav-fill">
+        <div><a href="/login" class="nav-item nav-link">Home</a></div>
+        <div><a href="/secured/user/teams/showTeams" class="nav-item nav-link">Teams</a></div>
+        <div><a href="/secured/user/players/showPlayers" class="nav-item nav-link active">Players</a></div>
+        <div><a href="/secured/user/leagues/showLeagues" class="nav-item nav-link">Leagues</a></div>
+        <div><a href="/secured/user/countries/showCountries" class="nav-item nav-link">Countries</a></div>
+        <div><a href="/secured/admin/teams/addTeam" class="nav-item nav-link">Add Team</a></div>
+        <div><a href="/secured/admin/players/addPlayer" class="nav-item nav-link">Add Player</a></div>
+        <div><a href="/secured/admin/leagues/addLeague" class="nav-item nav-link">Add League</a></div>
+        <div><a href="/logout" class="nav-item nav-link">Logout</a></div>
+    </nav>
+</div>
+
+<div class="container">
+    <p>Szukaj</p>
+    <form class="form-inline" action="/secured/user/players/searchPlayer" method="post" th:object="${Args}">
+        <label class="mb-2 mr-sm-2">Name</label>
+        <input type="text" th:field="*{name}" class="form-control mb-2 mr-sm-2" id="name" placeholder="Enter name" name="name">
+        <label class="mb-2 mr-sm-2">Country:</label>
+        <input type="text" th:field="*{country}" class="form-control mb-2 mr-sm-2" id="country" placeholder="Enter country" name="country">
+        <label class="mb-2 mr-sm-2">Type:</label>
+        <select th:field="*{type}"  class="form-control mb-2 mr-sm-2" name="type" id="type">
+            <option value="">wybierz</option>
+            <option value="0">Goalkeepers</option>
+            <option value="1">Defenders</option>
+            <option value="2">Midfielders</option>
+            <option value="3">Forwards</option>
+        </select>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+    </form>
+</div>
+
+
+
+
+
+<div>
+    <table class="table table-sm">
+        <thead class="thead-dark">
+            <th scope="col" class="col-0.2">ID</th>
+            <th scope="col" class="col-0.2">Name</th>
+            <th scope="col" class="col-0.2">Number</th>
+            <th scope="col" class="col-0.2">Country</th>
+            <th scope="col" class="col-0.2">Type</th>
+            <th scope="col" class="col-0.2">Age</th>
+            <th scope="col" class="col-0.2">Details</th>
+            <th scope="col" class="col-0.2">Edit</th>
+            <th scope="col" class="col-0.2">Delete</th>
+        </thead>
+        <tbody>
+        <tr th:each="l, iStat : ${playerPage.content}">
+            <td th:text="${l.id}"></td>
+            <td th:text="${l.name}"></td>
+            <td th:text="${l.number}"></td>
+            <td th:text="${l.playerCountry}"></td>
+            <td th:text="${l.type}"></td>
+            <td th:text="${l.age}"></td>
+            <td>
+                <div>
+                    <a href="#" th:href="@{/secured/user/players/showPlayer/__${l.id}__}"><span><i class='fas fa-file-alt' style='font-size:36px'></i></span></a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a href="#" th:href="@{/secured/admin/players/editPlayer/__${l.id}__}"><span><i class='fas fa-pencil-alt' style='font-size:36px'></i></span></a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <span> <a href="#" th:href="@{/secured/admin/players/deletePlayer/__${l.id}__}"><i class='fas fa-trash-alt' style='font-size:36px'></i></a></span>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<div th:if="${playerPage.totalPages > 0}" class="pagination"
+     th:each="pageNumber : ${pageNumbers}">
+
+    <a th:href="@{/secured/user/players/showPlayers(size=${playerPage.size}, page=${pageNumber})}"
+       th:text=${pageNumber}
+       th:class="${pageNumber == playerPage.number + 1} ? active"></a>
+</div>
+
+</body>
+</html>
